@@ -1,0 +1,21 @@
+name: Node.js CI
+
+on:
+  push:
+    branches: ["main"]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: "Build the docker image"
+        run: docker build . -t jenilm/next-js-cicd
+
+      - name: "Login to the docker HUB"
+        run: echo "${{secrets.DOCKERHUB_PASSWORD}}" | docker login -u ${{secrets.DOCKERHUB_USERNAME}} --password-stdin
+
+      - name: "Push the image to the docker HUB"
+        run: docker push jenilm/next-js-cicd:latest
