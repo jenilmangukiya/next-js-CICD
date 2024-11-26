@@ -15,7 +15,7 @@ jobs:
         run: docker build . -t jenilm/next-js-cicd
 
       - name: "Login to the docker HUB"
-        echo "${{secrets.DOCKERHUB_PASSWORD}}" | docker login -u ${{secrets.DOCKERHUB_USERNAME}} --password-stdin
+        run: echo "${{secrets.DOCKERHUB_PASSWORD}}" | docker login -u ${{secrets.DOCKERHUB_USERNAME}} --password-stdin
 
       - name: "Push the image to the docker HUB"
-        run: docker pull jenilm/next-js-cicd:latest
+        run: docker push jenilm/next-js-cicd:latest
